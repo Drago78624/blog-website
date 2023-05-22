@@ -20,7 +20,7 @@ const Sidebar = () => {
       <VStack spacing={4}>
         <Heading size="md" textAlign="center">ABOUT ME</Heading>
         <Box>
-          <Image src={SidebarImg} />
+          <Image maxW={200} src={SidebarImg} mx="auto" />
           <Text mt={4}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
             enim consequatur officia sint reiciendis qui delectus optio culpa

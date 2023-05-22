@@ -2,7 +2,7 @@ import { Box, Heading } from "@chakra-ui/react"
 
 const Footer = () => {
   return (
-    <Box mt="auto" bg="black" color="white" p={6} position="absolute" bottom="0" left="0" right="0" >
+    <Box mt={10} bg="black" color="white" p={6} >
         <Heading size="md" textAlign="center">
             Created By Drago78624 X MrX
         </Heading>
