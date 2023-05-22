@@ -16,9 +16,9 @@ import {BsPinterest} from "react-icons/bs"
 
 const Sidebar = () => {
   return (
-    <Box flex={2}>
+    <Box flex={2} mt={{base: 10, lg: 0}} mx={{base: "auto", lg: 0}} maxW="500px">
       <VStack spacing={4}>
-        <Heading>ABOUT ME</Heading>
+        <Heading size="md" textAlign="center">ABOUT ME</Heading>
         <Box>
           <Image src={SidebarImg} />
           <Text mt={4}>

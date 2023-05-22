@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <>
       <Header />
-      <Container height={2000} maxW={1400} mt={6}>
-        <Box display="flex" gap={20}>
+      <Container maxW={1400} mt={6}>
+        <Box display={{base: "block", lg: "flex"}} gap={20}>
           <Posts />
           <Sidebar />
         </Box>

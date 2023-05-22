@@ -1,8 +1,14 @@
-import {Box, Container, Flex, HStack, Heading, Image, Text} from "@chakra-ui/react"
+import {useRef} from "react"
+import {Box, Container, Flex, HStack, Heading, Image, Text, useDisclosure} from "@chakra-ui/react"
 import TestUserImg from "../assets/test-user-img.png"
 import {ImSearch} from "react-icons/im"
+import {HiOutlineMenu} from "react-icons/hi"
+import NavDrawer from "./NavDrawer"
 
 const Navbar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef<HTMLDivElement>(null)
+
   return (
     <Box shadow="xl" p={2}>
         <Container maxW="1400px">
@@ -10,7 +16,7 @@ const Navbar = () => {
               <Box>
                 <Heading size="lg">React Blog</Heading>
               </Box>
-              <HStack spacing={5} fontSize="lg">
+              <HStack display={{base: "none", md: "flex"}} spacing={5} fontSize="lg">
                 <Box>
                   <Text>Home</Text>
                 </Box>
@@ -34,6 +40,10 @@ const Navbar = () => {
                 <Box>
                   <ImSearch fontSize={18} />
                 </Box>
+                <Box display={{base: "inline-block", md: "none"}} color="black" ref={btnRef} onClick={onOpen}>
+                  <HiOutlineMenu fontSize={25} />
+                </Box>
+                <NavDrawer onClose={onClose} onOpen={onOpen} isOpen={isOpen} />
               </HStack>
             </Flex>
         </Container>
