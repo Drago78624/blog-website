@@ -1,10 +1,11 @@
 import { Badge, HStack, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { Card, CardBody } from "@chakra-ui/react";
 import TestPostImg from "../assets/test-post-img.png"
+import { Link } from "react-router-dom"
 
 const Post = () => {
   return (
-    <Card >
+    <Card as={Link} to="/post/1">
       <CardBody>
         <Image
           src={TestPostImg}
