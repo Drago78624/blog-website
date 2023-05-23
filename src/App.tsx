@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import PostDetail from "./pages/PostDetail";
 import WritePost from "./pages/WritePost";
 import UserSettings from "./pages/UserSettings";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const App = () => {
   return (
@@ -13,7 +15,9 @@ const App = () => {
       {/* <Home /> */}
       {/* <PostDetail /> */}
       {/* <WritePost /> */}
-      <UserSettings />
+      {/* <UserSettings /> */}
+      {/* <Login /> */}
+      <Register />
       <Footer />
     </Box>
   );
