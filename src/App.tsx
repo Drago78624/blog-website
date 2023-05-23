@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import PostDetail from "./pages/PostDetail";
 import WritePost from "./pages/WritePost";
+import UserSettings from "./pages/UserSettings";
 
 const App = () => {
   return (
@@ -11,7 +12,8 @@ const App = () => {
       <Navbar />
       {/* <Home /> */}
       {/* <PostDetail /> */}
-      <WritePost />
+      {/* <WritePost /> */}
+      <UserSettings />
       <Footer />
     </Box>
   );
