@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLDivElement>(null);
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <Box shadow="xl" p={2}>
