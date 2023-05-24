@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -25,15 +26,32 @@ const Login = () => {
         <form>
           <Stack spacing={4}>
             <InputGroup>
-              <Input borderColor="gray.300" placeholder="Email address" variant="flushed" />
+              <Input
+                borderColor="gray.300"
+                placeholder="Email address"
+                variant="flushed"
+              />
             </InputGroup>
             <InputGroup>
-              <Input borderColor="gray.300" placeholder="Password" variant="flushed" />
+              <Input
+                borderColor="gray.300"
+                placeholder="Password"
+                variant="flushed"
+              />
             </InputGroup>
             <Stack>
-                <Button width="full" colorScheme="green">Login</Button>
-                <Button width="full" colorScheme="red">Login with Google</Button>
-                <Text textAlign="center">Not have an account ? <Text color="green" as="span">Register</Text></Text>
+              <Button width="full" colorScheme="green">
+                Login
+              </Button>
+              <Button width="full" colorScheme="red">
+                Login with Google
+              </Button>
+              <Text textAlign="center">
+                Not have an account ?{" "}
+                <Text color="green" as={Link} to="/register">
+                  <Text as="span">Register</Text>
+                </Text>
+              </Text>
             </Stack>
           </Stack>
         </form>

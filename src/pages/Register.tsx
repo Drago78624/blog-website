@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
@@ -27,20 +28,40 @@ const Register = () => {
           <Stack spacing={4}>
             <HStack spacing={4}>
               <InputGroup>
-                <Input borderColor="gray.300" placeholder="First name" variant="flushed" />
+                <Input
+                  borderColor="gray.300"
+                  placeholder="First name"
+                  variant="flushed"
+                />
               </InputGroup>
               <InputGroup>
-                <Input borderColor="gray.300" placeholder="Last name" variant="flushed" />
+                <Input
+                  borderColor="gray.300"
+                  placeholder="Last name"
+                  variant="flushed"
+                />
               </InputGroup>
             </HStack>
             <InputGroup>
-              <Input borderColor="gray.300" placeholder="Email address" variant="flushed" />
+              <Input
+                borderColor="gray.300"
+                placeholder="Email address"
+                variant="flushed"
+              />
             </InputGroup>
             <InputGroup>
-              <Input borderColor="gray.300" placeholder="Password" variant="flushed" />
+              <Input
+                borderColor="gray.300"
+                placeholder="Password"
+                variant="flushed"
+              />
             </InputGroup>
             <InputGroup>
-              <Input borderColor="gray.300" placeholder="Confirm Password" variant="flushed" />
+              <Input
+                borderColor="gray.300"
+                placeholder="Confirm Password"
+                variant="flushed"
+              />
             </InputGroup>
             <Stack>
               <Button width="full" colorScheme="green">
@@ -51,8 +72,8 @@ const Register = () => {
               </Button>
               <Text textAlign="center">
                 Already have an account ?{" "}
-                <Text color="green" as="span">
-                  Login
+                <Text color="green" as={Link} to="/login">
+                  <Text as="span">Login</Text>
                 </Text>
               </Text>
             </Stack>

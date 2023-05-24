@@ -4,6 +4,8 @@ import { checkAuthLoader } from "./auth";
 import { RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
 import { Suspense, lazy } from "react";
+import Loader from "./components/Loader";
+import Error from "./pages/Error";
 
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
@@ -15,12 +17,13 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
       {
         path: "register",
         element: (
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loader />}>
             <Register />
           </Suspense>
         ),
@@ -28,7 +31,7 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loader />}>
             <Login />
           </Suspense>
         ),
@@ -36,7 +39,7 @@ const router = createBrowserRouter([
       {
         path: "write",
         element: (
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loader />}>
             <WritePost />
           </Suspense>
         ),
@@ -45,7 +48,7 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: (
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loader />}>
             <UserSettings />
           </Suspense>
         ),
@@ -54,7 +57,7 @@ const router = createBrowserRouter([
       {
         path: "post/:postId",
         element: (
-          <Suspense fallback="loading...">
+          <Suspense fallback={<Loader />}>
             <PostDetail />
           </Suspense>
         ),
