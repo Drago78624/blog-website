@@ -2,16 +2,32 @@ import {
   Box,
   Button,
   Container,
-  HStack,
+  FormControl,
+  FormErrorMessage,
   Heading,
   Input,
-  InputGroup,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { userRegisterSchema, userRegister } from "../models/user-schema";
 
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<userRegister>({
+    resolver: zodResolver(userRegisterSchema),
+  });
+
+  const onSubmit: SubmitHandler<userRegister> = (data) => {
+    console.log(data.firstName);
+    console.log(data);
+  };
+
   return (
     <Container
       maxW={1400}
@@ -24,47 +40,65 @@ const Register = () => {
         <Heading textAlign="center" mb={10} size="lg">
           Register
         </Heading>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={4}>
-            <HStack spacing={4}>
-              <InputGroup>
+              <FormControl isInvalid={errors.firstName && true}>
                 <Input
                   borderColor="gray.300"
                   placeholder="First name"
                   variant="flushed"
+                  type="text"
+                  id="firstName"
+                  {...register("firstName")}
                 />
-              </InputGroup>
-              <InputGroup>
+                {errors.firstName && <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>}
+              </FormControl>
+              <FormControl isInvalid={errors.lastName && true}>
                 <Input
                   borderColor="gray.300"
                   placeholder="Last name"
                   variant="flushed"
+                  type="text"
+                  id="lastName"
+                  {...register("lastName")}
                 />
-              </InputGroup>
-            </HStack>
-            <InputGroup>
+                {errors.lastName && <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>}
+              </FormControl>
+            <FormControl isInvalid={errors.email && true}>
               <Input
                 borderColor="gray.300"
                 placeholder="Email address"
                 variant="flushed"
+                type="email"
+                id="email"
+                {...register("email")}
               />
-            </InputGroup>
-            <InputGroup>
+              {errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}
+            </FormControl>
+            <FormControl isInvalid={errors.password && true}>
               <Input
                 borderColor="gray.300"
                 placeholder="Password"
                 variant="flushed"
+                type="password"
+                id="password"
+                {...register("password")}
               />
-            </InputGroup>
-            <InputGroup>
+              {errors.password && <FormErrorMessage>{errors.password?.message}</FormErrorMessage>}
+            </FormControl>
+            <FormControl isInvalid={errors.confirmPassword && true}>
               <Input
                 borderColor="gray.300"
                 placeholder="Confirm Password"
                 variant="flushed"
+                type="password"
+                id="confirmPassword"
+                {...register("confirmPassword")}
               />
-            </InputGroup>
+              {errors.confirmPassword && <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>}
+            </FormControl>
             <Stack>
-              <Button width="full" colorScheme="green">
+              <Button width="full" colorScheme="green" type="submit">
                 Register
               </Button>
               <Button width="full" colorScheme="red">

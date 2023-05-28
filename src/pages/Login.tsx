@@ -2,15 +2,32 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
+  FormErrorMessage,
   Heading,
   Input,
-  InputGroup,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { userLogin, userLoginSchema } from "../models/user-schema";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<userLogin>({
+    resolver: zodResolver(userLoginSchema),
+  });
+
+  const onSubmit: SubmitHandler<userLogin> = (data) => {
+    console.log(data.email);
+    console.log(data);
+  };
+
   return (
     <Container
       maxW={1400}
@@ -23,24 +40,36 @@ const Login = () => {
         <Heading textAlign="center" mb={10} size="lg">
           Login
         </Heading>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={4}>
-            <InputGroup>
+            <FormControl isInvalid={errors.email && true}>
               <Input
                 borderColor="gray.300"
                 placeholder="Email address"
                 variant="flushed"
+                type="email"
+                id="email"
+                {...register("email")}
               />
-            </InputGroup>
-            <InputGroup>
+              {errors.email && (
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+              )}
+            </FormControl>
+            <FormControl isInvalid={errors.password && true}>
               <Input
                 borderColor="gray.300"
                 placeholder="Password"
                 variant="flushed"
+                type="password"
+                id="password"
+                {...register("password")}
               />
-            </InputGroup>
+              {errors.password && (
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+              )}
+            </FormControl>
             <Stack>
-              <Button width="full" colorScheme="green">
+              <Button type="submit" width="full" colorScheme="green">
                 Login
               </Button>
               <Button width="full" colorScheme="red">
