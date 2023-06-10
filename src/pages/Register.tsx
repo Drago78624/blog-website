@@ -13,19 +13,32 @@ import { Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userRegisterSchema, userRegister } from "../models/user-schema";
+import axios from "axios";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<userRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
 
-  const onSubmit: SubmitHandler<userRegister> = (data) => {
-    console.log(data.firstName);
+  const onSubmit: SubmitHandler<userRegister> = async (data) => {
     console.log(data);
+    const formattedData = {
+      fname: data.firstName,
+      lname: data.lastName,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    };
+    const response = await axios.post(
+      "http://localhost:8000/api/v1/auth/signup",
+      formattedData
+    );
+
+    console.log(response);
   };
 
   return (
@@ -42,28 +55,32 @@ const Register = () => {
         </Heading>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={4}>
-              <FormControl isInvalid={errors.firstName && true}>
-                <Input
-                  borderColor="gray.300"
-                  placeholder="First name"
-                  variant="flushed"
-                  type="text"
-                  id="firstName"
-                  {...register("firstName")}
-                />
-                {errors.firstName && <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>}
-              </FormControl>
-              <FormControl isInvalid={errors.lastName && true}>
-                <Input
-                  borderColor="gray.300"
-                  placeholder="Last name"
-                  variant="flushed"
-                  type="text"
-                  id="lastName"
-                  {...register("lastName")}
-                />
-                {errors.lastName && <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>}
-              </FormControl>
+            <FormControl isInvalid={errors.firstName && true}>
+              <Input
+                borderColor="gray.300"
+                placeholder="First name"
+                variant="flushed"
+                type="text"
+                id="firstName"
+                {...register("firstName")}
+              />
+              {errors.firstName && (
+                <FormErrorMessage>{errors.firstName?.message}</FormErrorMessage>
+              )}
+            </FormControl>
+            <FormControl isInvalid={errors.lastName && true}>
+              <Input
+                borderColor="gray.300"
+                placeholder="Last name"
+                variant="flushed"
+                type="text"
+                id="lastName"
+                {...register("lastName")}
+              />
+              {errors.lastName && (
+                <FormErrorMessage>{errors.lastName?.message}</FormErrorMessage>
+              )}
+            </FormControl>
             <FormControl isInvalid={errors.email && true}>
               <Input
                 borderColor="gray.300"
@@ -73,7 +90,9 @@ const Register = () => {
                 id="email"
                 {...register("email")}
               />
-              {errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}
+              {errors.email && (
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+              )}
             </FormControl>
             <FormControl isInvalid={errors.password && true}>
               <Input
@@ -84,7 +103,9 @@ const Register = () => {
                 id="password"
                 {...register("password")}
               />
-              {errors.password && <FormErrorMessage>{errors.password?.message}</FormErrorMessage>}
+              {errors.password && (
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+              )}
             </FormControl>
             <FormControl isInvalid={errors.confirmPassword && true}>
               <Input
@@ -95,7 +116,11 @@ const Register = () => {
                 id="confirmPassword"
                 {...register("confirmPassword")}
               />
-              {errors.confirmPassword && <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>}
+              {errors.confirmPassword && (
+                <FormErrorMessage>
+                  {errors.confirmPassword?.message}
+                </FormErrorMessage>
+              )}
             </FormControl>
             <Stack>
               <Button width="full" colorScheme="green" type="submit">

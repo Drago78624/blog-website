@@ -1,11 +1,19 @@
 import { Badge, HStack, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import { Card, CardBody } from "@chakra-ui/react";
-import TestPostImg from "../assets/test-post-img.png"
-import { Link } from "react-router-dom"
+import TestPostImg from "../assets/test-post-img.png";
+import { Link } from "react-router-dom";
 
-const Post = () => {
+type PostType = {
+  id: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  tags: string[];
+};
+
+const Post = (props: PostType) => {
   return (
-    <Card as={Link} to="/post/1">
+    <Card as={Link} to={`/post/${props.id}`}>
       <CardBody>
         <Image
           src={TestPostImg}
@@ -13,19 +21,20 @@ const Post = () => {
           borderRadius="lg"
         />
         <Stack mt="6" spacing="3">
-        <HStack>
-            <Badge colorScheme="red">Music</Badge>
-            <Badge colorScheme="green">Life</Badge>
-        </HStack>
-          <Heading size="md">Post Title</Heading>
+          <HStack>
+            {props.tags.map((t) => {
+              return <Badge key={t} colorScheme="red">{t}</Badge>;
+            })}
+          </HStack>
+          <Heading size="md">{props.title}</Heading>
           <Text>
-            This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design
-            with a sprinkle of vintage design.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum itaque
+            omnis facilis animi ipsam nulla voluptatibus eveniet, quas
+            reiciendis dignissimos vitae aperiam, id earum velit? Est beatae id
+            at, consequuntur sit debitis dolorum eos, porro aliquam natus a
+            eveniet perferendis!
           </Text>
-          <Text color="blue.600">
-            1 hour ago
-          </Text>
+          <Text color="blue.600">{props.createdAt}</Text>
         </Stack>
       </CardBody>
     </Card>

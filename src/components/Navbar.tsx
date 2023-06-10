@@ -73,8 +73,12 @@ const Navbar = () => {
             )}
             {!isLoggedIn && (
               <HStack>
-                <Button as={Link} to="/login" >Login</Button>
-                <Button as={Link} to="/register" colorScheme="green">Register</Button>
+                <Button as={Link} to="/login">
+                  Login
+                </Button>
+                <Button as={Link} to="/register" colorScheme="green">
+                  Register
+                </Button>
               </HStack>
             )}
             <Box>
