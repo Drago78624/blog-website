@@ -9,23 +9,26 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userRegisterSchema, userRegister } from "../models/user-schema";
 import axios from "axios";
+import { useState } from "react";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<userRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
 
   const onSubmit: SubmitHandler<userRegister> = async (data) => {
-    console.log(data);
     const formattedData = {
       fname: data.firstName,
       lname: data.lastName,
@@ -33,12 +36,19 @@ const Register = () => {
       password: data.password,
       confirmPassword: data.confirmPassword,
     };
-    const response = await axios.post(
-      "http://localhost:8000/api/v1/auth/signup",
-      formattedData
-    );
 
-    console.log(response);
+    try {
+      console.log("sending");
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/auth/signup",
+        formattedData
+      );
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+      console.log(err.response.data.error);
+      setError(err.response.data.error);
+    }
   };
 
   return (
@@ -122,6 +132,7 @@ const Register = () => {
                 </FormErrorMessage>
               )}
             </FormControl>
+            <Box>{error}</Box>
             <Stack>
               <Button width="full" colorScheme="green" type="submit">
                 Register

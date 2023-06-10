@@ -11,8 +11,8 @@ export const userRegisterSchema = z
       .trim()
       .min(2, { message: "Last name must be 2 or more characters long" }),
     email: z.string().email().trim().toLowerCase(),
-    password: z.string().min(4),
-    confirmPassword: z.string().min(4),
+    password: z.string().min(10),
+    confirmPassword: z.string().min(10),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
