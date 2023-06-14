@@ -1,8 +1,7 @@
-import { IInitialState } from "./type";
+import { IUserContext } from "./type";
 
-const initialState: IInitialState = {
-  state: null,
-  setState: () => undefined,
+export const initialContextState: IUserContext = {
+    user: null,
+    error: false,
+    isFetching: false,
 };
-
-export { initialState };

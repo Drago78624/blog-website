@@ -1,39 +1,20 @@
-import React, { createContext, useReducer } from "react";
-import Reducer, { Action } from "./Reducer";
-import { IInitialState } from "./type";
+import { createContext, useContext, useState } from "react";
+import { initialContextState } from "./state";
+import { IUser, IUserContext } from "./type";
 
-export type User = {
-  user: AuthorType | null;
-  isFetching: boolean;
-  error: boolean;
-};
+const UserContext = createContext<{
+    state: IUserContext;
+    setState: React.Dispatch<React.SetStateAction<IUserContext>>;
+}>({ state: initialContextState, setState: () => undefined });
 
-type ContextProviderProp = {
-  children: React.ReactNode;
-};
+export const useUser = () => useContext(UserContext);
 
-const INITIAL_STATE = {
-  state: { user: null, isFetching: false, error: false },
-  setState: () => undefined,
-};
+export default function UserProvider({ children }: { children: React.ReactNode }) {
+    const [user, setUser] = useState<IUserContext>({ user: null, error: false, isFetching: false });
 
-export const Context = createContext<IInitialState>(INITIAL_STATE);
-
-const ContextProvider = ({ children }: ContextProviderProp) => {
-  const [state, dispatch] = useReducer(Reducer, INITIAL_STATE);
-
-  return (
-    <Context.Provider
-      value={{
-        user: state.user,
-        isFetching: state.isFetching,
-        error: state.error,
-        dispatch,
-      }}
-    >
-      {children}
-    </Context.Provider>
-  );
-};
-
-export default ContextProvider;
+    return (
+        <UserContext.Provider value={{ state: user, setState: setUser }}>
+            {children}
+        </UserContext.Provider>
+    );
+}

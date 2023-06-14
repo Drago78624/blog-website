@@ -14,7 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { userLogin, userLoginSchema } from "../models/user-schema";
 import { useContext } from "react";
-import { Context } from "../context/user/Context";
+import { Context } from "../context/user/context";
 
 const Login = () => {
   const {
