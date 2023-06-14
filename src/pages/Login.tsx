@@ -13,6 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { userLogin, userLoginSchema } from "../models/user-schema";
+import { useContext } from "react";
+import { Context } from "../context/user/Context";
 
 const Login = () => {
   const {
@@ -23,9 +25,10 @@ const Login = () => {
     resolver: zodResolver(userLoginSchema),
   });
 
+  const { dispatch, isFetching } = useContext(Context);
+
   const onSubmit: SubmitHandler<userLogin> = (data) => {
-    console.log(data.email);
-    console.log(data);
+    dispatch({ type: "LOGIN_START" });
   };
 
   return (
